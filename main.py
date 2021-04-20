@@ -24,6 +24,7 @@ class Graph:
 
 
     def traverse_color(self, from_vertice: Vertice) -> bool:
+        res = True
         color_other = from_vertice.color * -1
         for v in from_vertice.get_neigh():
             if v.color == from_vertice.color:
@@ -31,8 +32,8 @@ class Graph:
             if v.color == color_other:
                 continue
             v.color = color_other
-            self.traverse_color(v)
-        return True
+            res &= self.traverse_color(v)
+        return res
     def get_uncolored(self):
         vs = list(filter(lambda x: x.color == 0, self.vertices))
         if (len(vs) == 0):
